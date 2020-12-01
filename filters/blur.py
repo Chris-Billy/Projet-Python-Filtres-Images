@@ -9,6 +9,6 @@ def blur(img, format, flou):
     new_dest = f"./../output/{img}-copyFlou.jpg"
     cv2.imwrite(new_dest, img_blur)
 
-    log(f"Gray Scale => Conversion de l'image {img}{format} avec un flou de {flou}, enregistré dans {new_dest}")
+    log(f"Gossian Blur => Conversion de l'image {img}{format} avec un flou de {flou}, enregistré dans {new_dest}")
 
-blur("tigre", ".jpg", 15)
+# blur("tigre", ".jpg", 15)

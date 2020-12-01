@@ -11,4 +11,4 @@ def grayscale(img, format):
 
     log(f"Gray Scale => Conversion de l'image {img}{format} en Noir et Blanc, enregistré dans {new_dest}")
 
-grayscale("tigre", ".jpg")
+# grayscale("tigre", ".jpg")
