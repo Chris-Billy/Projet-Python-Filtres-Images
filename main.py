@@ -1,37 +1,26 @@
-import os, sys, cv2
-from logger import log
-from filters import grayscale as g, blur as b, dilate as d
+import sys
+import functions as f
 
 args = sys.argv
-print(args)
 
-img_dest = args[1]
+# TODO:
 
-for img_file in os.listdir(img_dest):
+i = 0
 
-    img_path = f"{img_dest}/{img_file}"
-    new_dest = "output/"
-    # On vérifie se type de l'image est correct
-    if img_path.lower().endswith((".jpg", ".png", ".jpeg")):
-        # On essaie de convertir l'image
-        try:
-            image = cv2.imread(img_path)
-            # =============== Filtre à appliquer =================
-            # image = g.grayscale(image)
-            # image = d.dilate(image, 15)
-            image = b.blur(image, 13)
-            # ====================================================
-            new_img = f"{new_dest}{img_file}"
-            # On vérifie si le dossier n'existe pas, on le cree
-            if not os.path.exists(new_dest):
-                os.makedirs(new_dest)
-            cv2.imwrite(new_img, image)
+for arg in args:
 
-        # Leve une erreur si le nom du fichier n'existe pas
-        except cv2.error:
-            print("Le fichier est introuvable ou n'existe pas")
-            log("Tentative echouee, le fichier est introuvable ou n'existe pas")
-    # Ce n'est pas une image
-    else:
-        print("Veuillez saisir un fichier de type image (.jpg, .png, .jpeg)")
-        log("Tentative echouee, le type du fichier est incorrect")
+    if arg == "--h":
+        print("usage: imagefilter")
+        print("--h,----help")
+        print("-i,--input-dir <directory>")
+        print("-o,--output-dir <directory>")
+
+    if arg == "-i":
+         entry_folder = f"{args[i+1]}"
+
+    elif arg == "-o":
+        output_folder = f"{args[i+1]}/"
+
+    i += 1
+
+f.application_filter(entry_folder, output_folder)
