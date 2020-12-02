@@ -34,4 +34,4 @@ def blur(img, format, flou):
         print("Veuillez saisir un fichier de type image (.jpg, .png)")
         log(f"Gossian Blur => Tentative echouee, le type du fichier est incorrect")
 
-blur("tigre", ".jpg", 15)
+blur("panda", ".jpg", 15)
