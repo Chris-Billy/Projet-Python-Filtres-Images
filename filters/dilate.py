@@ -8,7 +8,7 @@ def dilate(img, dilate):
     img_dest = f"imgs/{img}"
     new_dest = f"output/"
     # On vérifie se type de l'image est correct
-    if img_dest.endswith((".jpg", ".png")):
+    if img_dest.lower().endswith((".jpg", ".png", ".jpeg")):
         # On essaie de convertir l'image
         try:
             image = cv2.imread(img_dest)
@@ -32,4 +32,4 @@ def dilate(img, dilate):
         log(f"Dilate => Tentative echouee, le type du fichier est incorrect")
 
 
-dilate("tigre.jpg", 3)
+# dilate("tigre.jpg", 3)

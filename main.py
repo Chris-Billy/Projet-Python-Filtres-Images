@@ -1,9 +1,9 @@
 import os
+from filters import grayscale as g, blur as b, dilate as d
 
-img_dest = f"imgs"
+img_dest = "imgs"
 
-for element in os.listdir(img_dest):
-    if element.lower().endswith((".jpg", ".png", "jpeg")):
-        print(f"{element} est une image")
-    else:
-        print(f"{element} n'est pas une image")
+for image in os.listdir(img_dest):
+    g.grayscale(image)
+    # b.blur(image, 15)
+    # d.dilate(image, 15)

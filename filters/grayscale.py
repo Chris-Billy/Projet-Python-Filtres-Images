@@ -7,7 +7,7 @@ def grayscale(img):
     img_dest = f"imgs/{img}"
     new_dest = "output/"
     # On vérifie se type de l'image est correct
-    if img_dest.endswith((".jpg", ".png")):
+    if img_dest.lower().endswith((".jpg", ".png", ".jpeg")):
         # On essaie de convertir l'image
         try:
             image = cv2.imread(img_dest)
@@ -29,4 +29,4 @@ def grayscale(img):
         print("Veuillez saisir un fichier de type image (.jpg, .png)")
         log(f"Gray Scale => Tentative echouee, le type du fichier est incorrect")
 
-grayscale("tigre.jpg")
+# grayscale("tigre.jpg")

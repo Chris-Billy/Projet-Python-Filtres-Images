@@ -7,7 +7,7 @@ def blur(img, flou):
     img_dest = f"imgs/{img}"
     new_dest = "output/"
     # On vérifie se type de l'image est correct
-    if img_dest.endswith((".jpg", ".png")):
+    if img_dest.lower().endswith((".jpg", ".png", ".jpeg")):
         # On vérifie que le flou soit positif ET impaire
         if flou < 0 or flou % 2 == 0:
             print("La valeur du flou doit etre positive ET impaire")
@@ -34,4 +34,4 @@ def blur(img, flou):
         print("Veuillez saisir un fichier de type image (.jpg, .png)")
         log(f"Gossian Blur => Tentative echouee, le type du fichier est incorrect")
 
-blur("tigre.jpg", 15)
+# blur("tigre.jpg", 15)
