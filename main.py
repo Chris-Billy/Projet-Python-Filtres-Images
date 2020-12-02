@@ -1,8 +1,30 @@
+import os
 import cv2
+from logger import log
+from filters import grayscale as g, blur as b, dilate as d
+import functions as f
+import sys
 
-image = "./../imgs/tigre.txt"
+args = sys.argv
 
-if image.endswith((".jpg", ".png")):
-    print(f"c'est une image")
-else:
-    print("Le format du fichier n'est pas bon")
+# TODO:
+
+i = 0
+
+for arg in args:
+
+    if arg == "--h":
+        print("usage: imagefilter")
+        print("--h,----help")
+        print("-i,--input-dir <directory>")
+        print("-o,--output-dir <directory>")
+
+    if arg == "-i":
+         entry_folder = f"{args[i+1]}"
+
+    elif arg == "-o":
+        output_folder = f"{args[i+1]}/"
+
+    i += 1
+
+f.application_filter(entry_folder, output_folder)
