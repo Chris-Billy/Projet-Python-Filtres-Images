@@ -18,5 +18,5 @@ def filtre(list_folder):
 # Appliquer un filtre pour chaque image du dossier
 
 
-imgg = browse_folder('./imgs2/')
+imgg = browse_folder('./imgs/')
 print(imgg)
