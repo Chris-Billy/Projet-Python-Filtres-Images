@@ -2,9 +2,9 @@ import cv2
 from logger import log
 import os
 
-def blur(img, format, flou):
+def blur(img, flou):
 
-    img_dest = f"imgs/{img}{format}"
+    img_dest = f"imgs/{img}"
     new_dest = "output/"
     # On vérifie se type de l'image est correct
     if img_dest.endswith((".jpg", ".png")):
@@ -18,13 +18,13 @@ def blur(img, format, flou):
                 image = cv2.imread(img_dest)
                 img_blur = cv2.GaussianBlur(image, (flou, flou), 0)
 
-                new_img = f"{new_dest}{img}-copyFlou{format}"
+                new_img = f"{new_dest}{img}"
                 # On vérifie si le dossier n'existe pas, on le cree
                 if not os.path.exists(new_dest):
                     os.makedirs(new_dest)
                 cv2.imwrite(new_img, img_blur)
 
-                log(f"Gossian Blur => Conversion de l'image {img}{format} avec un flou de {flou}, enregistre dans {new_img}")
+                log(f"Gossian Blur => Conversion de l'image {img} avec un flou de {flou}, enregistre dans {new_img}")
                 # Leve une erreur si le nom du fichier n'existe pas
             except cv2.error:
                 print("Le fichier est introuvable ou n'existe pas")
@@ -34,4 +34,4 @@ def blur(img, format, flou):
         print("Veuillez saisir un fichier de type image (.jpg, .png)")
         log(f"Gossian Blur => Tentative echouee, le type du fichier est incorrect")
 
-blur("tigre", ".jpg", 15)
+blur("tigre.jpg", 15)

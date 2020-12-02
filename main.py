@@ -1,8 +1,9 @@
-import cv2
+import os
 
-image = "./../imgs/tigre.txt"
+img_dest = f"imgs"
 
-if image.endswith((".jpg", ".png")):
-    print(f"c'est une image")
-else:
-    print("Le format du fichier n'est pas bon")
+for element in os.listdir(img_dest):
+    if element.lower().endswith((".jpg", ".png", "jpeg")):
+        print(f"{element} est une image")
+    else:
+        print(f"{element} n'est pas une image")
