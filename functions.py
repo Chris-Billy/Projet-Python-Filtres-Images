@@ -52,3 +52,30 @@ def next_arg_exist(i, args):
     except IndexError:
         print("Add arguments please")
         quit()
+
+def config_filter(content, log_file):
+
+    filters_list = []
+    # On récupère tous nos filtres dans un tableau
+    all_filters = content.split("|")
+    for filter in all_filters:
+        # filter.split(":") = ['grayscale'] - ['blur', '10'] - ['dilate', '15']
+        if "grayscale" in filter:
+            grayscale = filter.split(":")
+            filters_list.append({"name": grayscale[0]})
+        if "blur" in filter:
+            blur_split = filter.split(":")
+            intensity = int(blur_split[1])
+            # On vérifie que le flou soit positif ET impaire
+            if intensity < 0 or intensity % 2 == 0:
+                print("La valeur du flou doit etre positive ET impaire")
+                log("Gossian Blur => Tentative echouee, la valeur du flou est incorrect", log_file)
+                quit()
+            else:
+                filters_list.append({"name": blur_split[0], "intensity": intensity})
+        if "dilate" in filter:
+            dilate_split = filter.split(":")
+            intensity = int(dilate_split[1])
+            filters_list.append({"name": dilate_split[0], "intensity": intensity})
+
+    return filters_list
