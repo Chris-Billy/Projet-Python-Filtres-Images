@@ -1,13 +1,15 @@
 import sys
 import functions as f
-from logger import log
+from logger import *
 
 
 args = sys.argv
 filters_list = []
-run = True
+log_file = "imagefilter.log"
 args_required = ["-i", "-o"]
 i = 0
+
+
 
 for arg in args_required:
     if arg in args:
@@ -15,12 +17,11 @@ for arg in args_required:
     else:
         if arg == "-i":
             print(f"L'argument {arg} est nécessaire pour connaitre le chemin des images initale")
-            run = False
+            quit()
         if arg == "-o":
             print(f"L'argument {arg} est nécessaire pour connaitre le chemin des images en sortie")
-            run = False
+            quit()
 
-# if run:
 for arg in args:
 
     if arg == "--h":
@@ -32,6 +33,10 @@ for arg in args:
     if len(args) == 1:
         print("Add arguments please")
 
+    if arg == "--conf-file":
+        if f.next_arg_exist(i, args):
+            entry_folder = args[i+1]
+
     if arg == "-i":
         if f.next_arg_exist(i, args):
             entry_folder = args[i+1]
@@ -39,6 +44,10 @@ for arg in args:
     elif arg == "-o":
         if f.next_arg_exist(i, args):
             output_folder = args[i+1]
+
+    elif arg == "--log-file":
+        if f.next_arg_exist(i, args):
+            log_file = get_log_file(args[i+1])
 
     elif arg == "--filters":
         if f.next_arg_exist(i, args):
@@ -55,7 +64,7 @@ for arg in args:
                     # On vérifie que le flou soit positif ET impaire
                     if intensity < 0 or intensity % 2 == 0:
                         print("La valeur du flou doit etre positive ET impaire")
-                        log("Gossian Blur => Tentative echouee, la valeur du flou est incorrect")
+                        log("Gossian Blur => Tentative echouee, la valeur du flou est incorrect", log_file)
                         quit()
                     else:
                         filters_list.append({"name": blur_split[0], "intensity": intensity})
@@ -66,6 +75,7 @@ for arg in args:
             if len(filters_list) == 0:
                 print("Enter an existing filter")
             else:
-                f.application_filter(entry_folder, output_folder, filters_list)
+                f.application_filter(entry_folder, output_folder, filters_list, log_file)
+                dump_log(log_file)
 
     i += 1
