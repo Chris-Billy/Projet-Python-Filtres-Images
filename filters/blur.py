@@ -8,6 +8,7 @@ def blur(img, flou):
     if flou < 0 or flou % 2 == 0:
         print("La valeur du flou doit etre positive ET impaire")
         log(f"Gossian Blur => Tentative echouee, la valeur du flou est incorrect")
+        return None
     else:
         log(f"Gossian Blur => Conversion de l'image, application d'un flou de {flou} sur l'image")
         return cv2.GaussianBlur(img, (flou, flou), 0)
