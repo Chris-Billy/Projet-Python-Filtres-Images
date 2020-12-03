@@ -43,6 +43,7 @@ for arg in args:
                 print("Enter an existing filter")
             else:
                 f.application_filter(entry_folder, output_folder, filters_list, log_file)
+                dump_log(log_file)
 
     if arg == "-i":
         if f.next_arg_exist(i, args):
