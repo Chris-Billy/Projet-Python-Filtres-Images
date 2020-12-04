@@ -54,7 +54,7 @@ def filter_number(img, filters_list, log_file):
         if filter["name"] == "dilate":
             new_image = d.dilate(new_image, filter["intensity"])
             log(f"Dilate => Conversion de l'image, application d'une dilatation de {filter['intensity']} sur l'image", log_file)
-        if filter["name"] == "message":
+        if filter["name"] == "filterZeTeam":
             new_image = z.zeteam(new_image, filter["text"])
             log(f"filterZeTeam => Conversion de l'image, application du texte {filter['text']} sur l'image", log_file)
     return new_image
@@ -105,7 +105,7 @@ def config_filter(content, log_file):
             dilate_split = filter.split(":")
             intensity = int(dilate_split[1])
             filters_list.append({"name": dilate_split[0], "intensity": intensity})
-        if "message" in filter:
+        if "filterZeTeam" in filter:
             message = filter.split(":")
             text = message[1]
             filters_list.append({"name": message[0], "text": text})
