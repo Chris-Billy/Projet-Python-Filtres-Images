@@ -1,7 +1,7 @@
 import sys
 import functions as f
 from logger import *
-from configparser import ConfigParser
+from config import get_config_file
 
 
 args = sys.argv
@@ -19,7 +19,7 @@ for arg in args:
         print("--h,----help")
         print("-i,--input-dir <directory>")
         print("-o,--output-dir <directory>")
-        print("--conf-file <file.ini>")
+        print("--config-file <file.ini>")
         print("--log-file <file.log>")
         print("--filters <grayscale|blur:5|dilate:10")
 
@@ -47,24 +47,34 @@ for arg in args:
                 else:
                     f.application_filter(entry_folder, output_folder, filters_list, log_file)
                     dump_log(log_file)
+        else:
+            entry_folder = get_config_file(conf_file)[0]["input_dir"]
+            output_folder = get_config_file(conf_file)[1]["output_dir"]
+            log_file = get_config_file(conf_file)[2]["log_file"]
+            filters_list = get_config_file(conf_file)[3]["content"]
+            if f.next_arg_exist(i, args):
+                filters_list = f.config_filter(args[i+1], log_file)
+                if len(filters_list) == 0:
+                    print("Enter an existing filter")
+                else:
+                    f.application_filter(entry_folder, output_folder, filters_list, log_file)
+                    dump_log(log_file)
 
-    if arg == "--conf-file":
-        if f.next_arg_exist(i, args):
-            if args[i+1].lower().endswith(".ini"):
-                conf_file = args[i+1]
-            else:
-                print(f"{args[i+1]} n'est pas de type (.ini), 'imagefilter.ini' par défaut")
-                conf_file = "imagefilter.ini"
-            parser = ConfigParser()
-            parser.read(conf_file)
-            entry_folder = parser.get("general", "input_dir")
-            output_folder = parser.get("general", "output_dir")
-            log_file = parser.get("general", "log_file")
-            filters_list = f.config_filter(parser.get("filters", "content"), log_file)
-            if len(filters_list) == 0:
-                print("Enter an existing filter")
-            else:
-                f.application_filter(entry_folder, output_folder, filters_list, log_file)
-                dump_log(log_file)
-
+    if arg == "--config-file":
+        if not "--filters" in args:
+            if f.next_arg_exist(i, args):
+                if args[i+1].lower().endswith(".ini"):
+                    conf_file = args[i+1]
+                else:
+                    print(f"{args[i+1]} n'est pas de type (.ini), 'imagefilter.ini' par défaut")
+                    conf_file = "imagefilter.ini"
+                entry_folder = get_config_file(conf_file)[0]["input_dir"]
+                output_folder = get_config_file(conf_file)[1]["output_dir"]
+                log_file = get_config_file(conf_file)[2]["log_file"]
+                filters_list = get_config_file(conf_file)[3]["content"]
+                if len(filters_list) == 0:
+                    print("Enter an existing filter")
+                else:
+                    f.application_filter(entry_folder, output_folder, filters_list, log_file)
+                    dump_log(log_file)
     i += 1
