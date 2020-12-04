@@ -1,12 +1,16 @@
 from configparser import ConfigParser
 from functions import config_filter
 
-def get_config_file(log_file):
-
+def get_config_file(conf_file):
+    f"""
+    Récupère les configurations du fichier ini sous forme de dictionnaire enregistré dans un tableau
+    :param conf_file: le nom du fichier où se trouve les configurations (file.ini)
+    :return: un tableau de dictionnaire (array = ['{"key": "value"}'])
+    """
     config = []
 
     parser = ConfigParser()
-    parser.read(log_file)
+    parser.read(conf_file)
 
     entry_folder = parser.get("general", "input_dir")
     config.append({"input_dir": entry_folder})
