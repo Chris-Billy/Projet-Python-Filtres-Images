@@ -1,4 +1,4 @@
-import sys
+import sys, os, inspect
 import functions as f
 from logger import *
 from config import get_config_file
@@ -22,6 +22,14 @@ for arg in args:
         print("--config-file <file.ini>")
         print("--log-file <file.log>")
         print("--filters <grayscale|blur:5|dilate:10")
+
+    if arg == "--list-filters":
+        for module in os.listdir("filters"):
+            if module.startswith("__"):
+                continue
+            else:
+                module_name = inspect.getmodulename(module)
+                print(module_name)
 
     if len(args) == 1:
         print("Add arguments please")
